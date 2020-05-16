@@ -10,7 +10,7 @@ function App() {
         console.log(json);
         setData(json);
       });
-  });
+  }, []);
   return (
     <div>
       <div>base: {data.base}</div>
