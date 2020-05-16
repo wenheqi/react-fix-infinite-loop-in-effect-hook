@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
 
 function App() {
+  const [data, setData] = useState({ rates: {} });
+  useEffect(() => {
+    fetch("https://api.exchangeratesapi.io/latest")
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        setData(json);
+      });
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>base: {data.base}</div>
+      <div>date: {data.date}</div>
+      <div>rates:</div>
+      {Object.keys(data.rates).map((rate) => (
+        <div key={rate}>
+          {rate} : {data.rates[rate]}
+        </div>
+      ))}
     </div>
   );
 }
