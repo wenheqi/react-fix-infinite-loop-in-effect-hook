@@ -1,5 +1,29 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Problem
+
+When running this app in browser, useEffect() keeps fetching the data.
+
+Why?
+
+From React documentation
+
+```
+If you’re familiar with React class lifecycle methods, you can think of useEffect Hook as componentDidMount, componentDidUpdate, and componentWillUnmount combined.
+```
+
+useEffect() will be called not only when componenet mounts, but also when it updates. In the useEffect(), I update state variable which will trigger component update, hence useEffect() is being called infinitely.
+
+## Fix
+
+From React documentation
+
+```
+You can tell React to skip applying an effect if certain values haven’t changed between re-renders. To do so, pass an array as an optional second argument to useEffect.
+```
+
+By passing an empty array as the second argument, we tell useEffect that we don't need to run it when component updates because we are watching no state variables in the array.
+
 ## Available Scripts
 
 In the project directory, you can run:
